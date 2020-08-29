@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">City Parcel Project</string>
+    <string name="singUp">가입하기</string>
+    <string name="welcomeDirection1">회원이십니까?</string>
+    <string name="welcomeDirection2">City parcel 앱 접속을 위해서는 로그인이 필요합니다</string>
+    <string name="loginIn">로그인하기</string>
+    <string name="register_terms_direction1">개인정보 수집 및 이용에 대한 안내</string>
+    <string name="register_terms_direction2">내용을 자세히 읽고 동의해 주십시요</string>
+    <string name="register_terms_direction3">개인정보 수집 및 이용</string>
+    <string name="welcome_image">TODO</string>
+    <string name="registerTermsDirection5">귀하는 상기 게재된 개인 정보 수집에 대한 동의를 거부할 권리가 있으며, 동의 거부 시에는 회원 등록이 제한될 수 있습니다.</string>
+    <string name="register_accept">동의</string>
+    <string name="register_terms_direction6">본인은 개인정보의 수집 및 이용에 관한 사항을 모두 이해하였으며 이해 동의 합니다.</string>
+    <string name="next">다음</string>
+    <string name="email">이메일</string>
+    <string name="email_address">이메일 주소</string>
+    <string name="double_check">중복확인</string>
+    <string name="create_password">비밀번호 생성</string>
+    <string name="input_password">비밀번호</string>
+    <string name="reInput_password">비밀번호 재입력</string>
+    <string name="name">이름</string>
+    <string name="done">완료</string>
+    <string name="login">로그인</string>
+    <string name="my_address">내 주소</string>
+    <string name="detail_address">상세주소</string>
+    <string name="address">주소</string>
+    <string name="search_address">주소찾기</string>
+    <string name="blank" />
+    <string name="postal_code">우편번호</string>
+    <string name="city_parcel">도심택배</string>
+    <string name="find_city">동네 찾기</string>
+    <string name="find_parcel">운송찾기</string>
+    <string name="register_parcel">운송신청</string>
+    <string name="find_my_parcel">나의 운송품 상태</string>
+    <string name="write_register_parcel">운송신청 글쓰기</string>
+    <string name="title">제목</string>
+    <string name="my_location">내 위치</string>
+    <string name="destination_location">목적지 위치</string>
+    <string name="starting_point">출발지</string>
+    <string name="service_price">운송비용</string>
+    <string name="username">USERNAME</string>
+    <string name="parcel_info">운송물품 정보</string>
+    <string name="input_message">메시지를 입력하세요</string>
+    <string name="writer">작성자</string>
+    <string name="comment">댓글</string>
+    <string name="track">Track</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>

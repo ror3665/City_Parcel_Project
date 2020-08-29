@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/line_rectangle_shape">
+
+        <TextView
+            android:id="@+id/textView_itemFP_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="25dp"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:text="@string/title" />
+
+        <TextView
+            android:id="@+id/textView_itemFP_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:text="@string/destination_location" />
+
+        <TextView
+            android:id="@+id/textView_itemFP_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:text="@string/service_price" />
+
+    </LinearLayout>
+</LinearLayout>

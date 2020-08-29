@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.cityparcelproject">
+    <!-- authority -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
+
+        <!-- deliveryman package -->
+        <activity android:name=".cityparcel.deliveryman.DeliveryManActivity" /> <!-- track package -->
+        <activity android:name=".cityparcel.track.CompletedPackageActivity" />
+        <activity android:name=".cityparcel.track.ShippingPackageActivity" />
+        <activity android:name=".cityparcel.track.ScheduledPackageActivity" />
+        <activity android:name=".cityparcel.track.TrackMyParcelActivity" /> <!-- serviceHome package -->
+        <activity android:name=".cityparcel.menu.MainMenuActivity" />
+        <activity android:name=".cityparcel.menu.FindParcelActivity" />
+        <activity android:name=".cityparcel.sender.RegisterParcelActivity" />
+        <activity android:name=".cityparcel.menu.FindParcelInfoActivity" />
+        <activity android:name=".cityparcel.webView.DaumWebViewActivity" />
+
+        <!-- root package -->
+        <activity android:name=".cityparcel.authentication.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".cityparcel.message.MessageActivity" />
+        <activity android:name=".cityparcel.profile.ProfileActivity" />
+
+        <!--알림 -->
+        <service android:name=".cityparcel.message.MyFirebaseMessagingService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGIN.EVENT"/>
+            </intent-filter>
+        </service>
+
+         <!--알림 테마ㅏ변경 -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@android:drawable/ic_dialog_alert"/>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPrimary"/>
+
+
+    </application>
+
+
+
+</manifest>
