@@ -217,7 +217,7 @@ public class MessageActivity extends AppCompatActivity {
             }
             long unixTime = (long) comments.get(position).timestamp;
             Date date = new Date(unixTime);
-            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Aisa/Seoul"));
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
             String time = simpleDateFormat.format(date);
             messageViewHolder.textView_timestamp.setText(time);
         }

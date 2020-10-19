@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -147,21 +154,21 @@
             android:id="@+id/editText_profile_comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_bias="0"
-            android:ems="10"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
-            android:layout_marginStart="5dp"
             android:background="@drawable/gray_rounded_rectangle_shape"
+            android:ems="10"
             android:hint="@string/input_message"
             android:inputType="textMultiLine"
             android:paddingStart="10dp"
-            android:paddingEnd="0dp"
             android:paddingTop="5dp"
+            android:paddingEnd="0dp"
             android:paddingBottom="5dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_profile_comment_send"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -180,4 +187,26 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_profile_comment_constraintLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/parcel_profile_recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -9,6 +9,4 @@ public class VoteModel {
         public String redeliveryRate;
         public String manner;
         public String uid;
-
-
 }
