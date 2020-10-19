@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent" >
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -110,6 +117,28 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/line_rectangle_shape"
+        android:id="@+id/activity_main_menu_constraintLayoutImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_main_menu_constraintLayout2">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_63" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -120,7 +149,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_menu_constraintLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/activity_main_menu_constraintLayoutImage">
 
         <Button
             android:id="@+id/button_serviceMain_registerParcel"
@@ -129,7 +158,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/edit_document"
+            android:drawableTop="@drawable/ic_document_with_pencil"
             android:text="운송신청"
             android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -144,7 +173,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/handover_box"
+            android:drawableTop="@drawable/ic_search_package_icon"
             android:text="운송 찾기"
             android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -234,7 +263,7 @@
             android:background="@drawable/line_rectangle_shape"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:text="Sign out"
+            android:text="로그아웃"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/delete_account"
             app:layout_constraintStart_toStartOf="parent"
@@ -249,10 +278,12 @@
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:background="@drawable/line_rectangle_shape"
-        android:text="Delete account"
+        android:text="회원탈퇴"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/sign_out"
         app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

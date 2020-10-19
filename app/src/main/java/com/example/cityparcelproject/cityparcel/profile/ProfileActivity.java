@@ -38,14 +38,20 @@ public class ProfileActivity extends AppCompatActivity {
         redeliveryRateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String str = voteModel.redeliveryRate;
+                int value = Integer.parseInt(str) + 1;
+                String result = Integer.toString(value);
+                FirebaseDatabase.getInstance().getReference().child("profile").child(myUid).child("redeliveryRate").setValue(result);
             }
         });
 
         mannerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String str = voteModel.manner;
+                int value = Integer.parseInt(str) + 1;
+                String result = Integer.toString(value);
+                FirebaseDatabase.getInstance().getReference().child("profile").child(myUid).child("manner").setValue(result);
             }
         });
 
@@ -56,8 +62,6 @@ public class ProfileActivity extends AppCompatActivity {
         String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         email_textView.setText(email);
         username_textView.setText(username);
-
-
     }
 
     void getVotes() {
