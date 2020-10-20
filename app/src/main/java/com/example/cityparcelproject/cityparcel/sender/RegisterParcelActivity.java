@@ -2,6 +2,7 @@ package com.example.cityparcelproject.cityparcel.sender;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,11 +32,11 @@ import java.util.Map;
 public class RegisterParcelActivity extends AppCompatActivity {
 
     private static final int DaumWebViewActivityForResult = 10001;
-    private String parcelTitle, parcelPrice, parcelLocation, parcelDestination, parcelForm,  parcelState, parcelMember, name, uid;
+    private String parcelTitle, parcelPrice, parcelLocation, parcelDestination, parcelForm,  parcelState, parcelMember, name, uid, parcelWeight, parcelDistance;
     private TextView myLocationTextView;
-    private EditText titleEditText, priceEditText, destinationEditText, fromEditText;
+    private EditText titleEditText, priceEditText, destinationEditText, fromEditText, weightEditText, distanceEditText;
     private Button registerDoneBtn;
-    private ImageButton findLocationImageBtn;
+    private ImageButton findLocationImageBtn, calculatorImageBtn;
 
     private static String URL = "http://thecityparcel.com/RegisterParcel.php";
 
@@ -54,9 +55,29 @@ public class RegisterParcelActivity extends AppCompatActivity {
         myLocationTextView = (TextView) findViewById(R.id.textView_registerParcel_myLocation);
         destinationEditText =  (EditText) findViewById(R.id.editText_registerParcel_destination);
         findLocationImageBtn = (ImageButton) findViewById(R.id.imageButton_registerParcel_findAddress);
+        calculatorImageBtn = findViewById(R.id.imageButton_registerParcel_calculator);
         fromEditText = (EditText) findViewById(R.id.editText_registerParcel_form);
+        weightEditText = findViewById(R.id.editText_registerParcel_weight);
+        distanceEditText = findViewById(R.id.editText_registerParcel_distance);
+
 
         myLocationTextView.setText(parcelLocation);
+
+        calculatorImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(weightEditText.getText().toString().length() > 0 && distanceEditText.getText().toString().length() > 0) {
+                    double weightPrice = Double.parseDouble(weightEditText.getText().toString());
+                    double distancePrice = Double.parseDouble(distanceEditText.getText().toString());
+                    double result = (weightPrice * 500) + (distancePrice * 1000);
+                    priceEditText.setText(Integer.toString((int)result));
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "무게(kg)와 거리(km)를 작성해 주세요!", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
+                }
+            }
+        });
 
         findLocationImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +96,9 @@ public class RegisterParcelActivity extends AppCompatActivity {
                 parcelDestination = destinationEditText.getText().toString();
                 parcelForm = fromEditText.getText().toString();
                 parcelState = "scheduled";
+                parcelWeight = weightEditText.getText().toString();
+                parcelDistance = distanceEditText.getText().toString();
+
                 if(parcelTitle.length() < 3) {
                     Toast.makeText(getApplicationContext(),"3글자 이상 제목을 입력해주세요", Toast.LENGTH_SHORT).show();
                     titleEditText.requestFocus();
@@ -97,6 +121,18 @@ public class RegisterParcelActivity extends AppCompatActivity {
                     fromEditText.requestFocus();
                     return;
                 }
+
+                if(parcelWeight.length() < 1) {
+                    Toast.makeText(getApplicationContext(),"운송 물품의 무게를 입력해주세요", Toast.LENGTH_SHORT).show();
+                    fromEditText.requestFocus();
+                    return;
+                }
+
+                if(parcelDistance.length() < 1) {
+                    Toast.makeText(getApplicationContext(),"예상 거리를 입력해주세요", Toast.LENGTH_SHORT).show();
+                    fromEditText.requestFocus();
+                    return;
+                }
                     doRegisterParcelPHP();
                     finish();
 
@@ -115,7 +151,9 @@ public class RegisterParcelActivity extends AppCompatActivity {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")) {
-                                Toast.makeText(getApplicationContext(),"운송 정보 등록 완료", Toast.LENGTH_SHORT).show();
+                                Toast toast = Toast.makeText(getApplicationContext(), "운송정보가 등록됬어요", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER,0,0);
+                                toast.show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -141,6 +179,8 @@ public class RegisterParcelActivity extends AppCompatActivity {
                 params.put("parcelState", parcelState);
                 params.put("senderName", name);
                 params.put("uid", uid);
+                params.put("parcelWeight", parcelWeight);
+                params.put("parcelDistance", parcelDistance);
                 return params;
             }
         };

@@ -1,6 +1,7 @@
 package com.example.cityparcelproject.cityparcel.profile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -30,7 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText editTextComment;
     private Button redeliveryRateButton, mannerButton;
     private ImageButton senderButton;
-    private String myUid;
+    private String profileUID;
     private VoteModel voteModel;
     private RecyclerView recyclerView;
     private ProfileCommentAdapter profileCommentAdapter;
@@ -39,6 +40,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Intent intent = getIntent();
+        profileUID = intent.getStringExtra("uid");
         email_textView = findViewById(R.id.profile_user_email);
         username_textView = findViewById(R.id.profile_user_display_name);
         editTextComment = findViewById(R.id.editText_profile_comment);
@@ -47,7 +50,6 @@ public class ProfileActivity extends AppCompatActivity {
         senderButton = findViewById(R.id.button_profile_comment_send);
         recyclerView = findViewById(R.id.parcel_profile_recycleView);
         voteModel = new VoteModel();
-        myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         basicInfo();
         getVotes();
@@ -59,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
                 String str = voteModel.redeliveryRate;
                 int value = Integer.parseInt(str) + 1;
                 String result = Integer.toString(value);
-                FirebaseDatabase.getInstance().getReference().child("profile").child(myUid).child("redeliveryRate").setValue(result);
+                FirebaseDatabase.getInstance().getReference().child("profile").child(profileUID).child("redeliveryRate").setValue(result);
             }
         });
 
@@ -69,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
                 String str = voteModel.manner;
                 int value = Integer.parseInt(str) + 1;
                 String result = Integer.toString(value);
-                FirebaseDatabase.getInstance().getReference().child("profile").child(myUid).child("manner").setValue(result);
+                FirebaseDatabase.getInstance().getReference().child("profile").child(profileUID).child("manner").setValue(result);
             }
         });
 
@@ -79,10 +81,10 @@ public class ProfileActivity extends AppCompatActivity {
                 String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
                 String message = editTextComment.getText().toString();
                 Object timestamp = ServerValue.TIMESTAMP;
-                String uid = myUid;
+                String uid = profileUID;
 
                 CommentModel commentModel = new CommentModel(username, message, timestamp, uid);
-                FirebaseDatabase.getInstance().getReference().child("profile").child(myUid).child("comment").push().setValue(commentModel);
+                FirebaseDatabase.getInstance().getReference().child("profile").child(profileUID).child("comment").push().setValue(commentModel);
                 editTextComment.setText(""); // init
                 Toast toast = Toast.makeText(getApplicationContext(), "댓글이 등록되었어요", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER,0,0);
@@ -102,15 +104,34 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void basicInfo() {
-        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        email_textView.setText(email);
-        username_textView.setText(username);
+        FirebaseDatabase.getInstance().getReference().child("users").child(profileUID).child("userEmail").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                email_textView.setText(snapshot.getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference().child("users").child(profileUID).child("userName").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                username_textView.setText(snapshot.getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     void getVotes() {
 
-        FirebaseDatabase.getInstance().getReference().child("profile").child(myUid).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("profile").child(profileUID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot item : snapshot.getChildren()) {
@@ -129,7 +150,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     void getComment() {
 
-        FirebaseDatabase.getInstance().getReference().child("profile").child(myUid).child("comment").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("profile").child(profileUID).child("comment").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 profileCommentAdapter.deleteAllItem();

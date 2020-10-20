@@ -175,6 +175,7 @@ public class MainMenuActivity extends AppCompatActivity  implements View.OnClick
         }
         checkProfile();
         Intent intent = new Intent(MainMenuActivity.this, ProfileActivity.class);
+        intent.putExtra("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
         MainMenuActivity.this.startActivity(intent);
     }
 

@@ -39,9 +39,9 @@ public class FindParcelInfoActivity extends AppCompatActivity {
 
     private static String URL = "http://thecityparcel.com/ShowParcelInfo.php";
     private static String URL3 = "http://thecityparcel.com/CommentList.php";
-    private TextView usernameTextView, startingPointTextView, titleTextView, destinationTextView, parcelInfoTextView, priceTextView;
+    private TextView usernameTextView, startingPointTextView, titleTextView, destinationTextView, parcelInfoTextView, priceTextView, weightTextView, distanceTextView;
     private EditText commentEditText;
-    private String senderName, username, getStartingPoint, getTitle, getDestination, getParcelInfo, getPrice,  getCommentWriter, getCommentContent, senderUid;
+    private String senderName, username, getStartingPoint, getTitle, getDestination, getParcelInfo, getPrice,  getCommentWriter, getCommentContent, senderUid, getWeight, getDistance;
     private int parcelIdx;
     private ImageButton addCommentBtn;
     private Button chatBtn;
@@ -62,6 +62,8 @@ public class FindParcelInfoActivity extends AppCompatActivity {
         destinationTextView = (TextView) findViewById(R.id.textView_parcel_info_destination);
         parcelInfoTextView = (TextView) findViewById(R.id.textView_parcel_info_parcelInfo);
         priceTextView = (TextView) findViewById(R.id.textView_parcel_info_price);
+        weightTextView = (TextView) findViewById(R.id.textView_parcel_info_weight);
+        distanceTextView = (TextView) findViewById(R.id.textView_parcel_info_distance);
         commentEditText = (EditText)findViewById(R.id.editText_parcel_info_comment);
         addCommentBtn = (ImageButton)findViewById(R.id.button_parcel_info_send);
         chatBtn = findViewById(R.id.chat_button);
@@ -111,6 +113,8 @@ public class FindParcelInfoActivity extends AppCompatActivity {
                         getPrice = jData.getString("parcel_price");
                         senderName = jData.getString("sender_name");
                         senderUid = jData.getString("uid");
+                        getWeight = jData.getString("parcel_weight");
+                        getDistance = jData.getString("parcel_distance");
                     }
                     setTextView();
                 } catch (JSONException e) {
@@ -138,12 +142,14 @@ public class FindParcelInfoActivity extends AppCompatActivity {
 
     private void setTextView() {
         String price = NumberFormat.getCurrencyInstance(Locale.KOREA).format(Integer.parseInt(getPrice));
-        startingPointTextView.setText(getStartingPoint + "(출발지)");
+        startingPointTextView.setText(getStartingPoint);
         titleTextView.setText(getTitle);
-        destinationTextView.setText(getDestination  + "(목적지)");
+        destinationTextView.setText(getDestination);
         parcelInfoTextView.setText(getParcelInfo);
         priceTextView.setText(price);
         usernameTextView.setText(senderName);
+        weightTextView.setText(getWeight);
+        distanceTextView.setText(getDistance);
     }
 
     private void addCommentPHP() {

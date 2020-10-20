@@ -20,14 +20,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:drawableStart="@drawable/ic_donation"
+            android:drawablePadding="10dp"
             android:id="@+id/textView_parcel_info_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:text="@string/username"
+            android:gravity="center_vertical"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +44,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:text="@string/starting_point"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,20 +65,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="@string/title"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:textSize="30sp"
+            android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:drawableStart="@drawable/ic_arrow_point"
             android:id="@+id/textView_parcel_info_destination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="@string/destination_location"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:text="@string/parcel_info"
             android:textColor="@android:color/black"
@@ -98,65 +102,102 @@
             app:layout_constraintTop_toBottomOf="@+id/textView_parcel_info_destination" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/underline_rectangle_shape"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout9"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_bias="0"
-            android:layout_marginStart="10dp"
-            android:text="@string/service_price"
-            android:textColor="@android:color/black"
+            android:background="@drawable/underline_rectangle_shape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
 
-        <TextView
-            android:id="@+id/textView_parcel_info_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/service_price"
-            android:textColor="@android:color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/chat_button"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            <TextView
+                android:id="@+id/textView_parcel_info_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginTop="7dp"
+                android:text="price"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
-        <Button
-            android:id="@+id/chat_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="10dp"
-            android:background="#00BFFF"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:paddingStart="5sp"
-            android:paddingTop="8sp"
-            android:paddingEnd="5sp"
-            android:paddingBottom="8sp"
-            android:layout_marginBottom="10dp"
-            android:text="채팅으로 거래하기"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView_parcel_info_price"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            <Button
+                android:drawableStart="@drawable/ic_chat_bubble"
+                android:drawablePadding="5dp"
+                android:id="@+id/chat_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00BFFF"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="5sp"
+                android:paddingTop="4sp"
+                android:paddingEnd="5sp"
+                android:paddingBottom="4sp"
+                android:text="채팅으로 거래하기"
+                android:layout_marginEnd="15dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView_parcel_info_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Weight"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_kilgram" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4"
+                app:srcCompat="@drawable/ic_kilometer" />
+
+            <TextView
+                android:id="@+id/textView_parcel_info_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Distance"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5"
+                app:srcCompat="@drawable/ic_cash" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -194,7 +235,7 @@
             android:id="@+id/button_parcel_info_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:background="@drawable/ic_send_icon"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,10 +1,13 @@
 package com.example.cityparcelproject.cityparcel.message;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -16,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cityparcelproject.R;
+import com.example.cityparcelproject.cityparcel.profile.ProfileActivity;
+import com.example.cityparcelproject.cityparcel.profile.VoteModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -49,17 +54,18 @@ public class MessageActivity extends AppCompatActivity {
     private String destinationUid;
     private ImageButton imageButton;
     private EditText editText;
-    private String uid;
+    private String senderUID;
     private String chatRoomUid;
     private RecyclerView recyclerView;
     private UserModel destinationUserModel;
+    private boolean isAvailable;
 
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        uid = FirebaseAuth.getInstance().getCurrentUser().getUid(); // 채팅 요구 UID
+        senderUID = FirebaseAuth.getInstance().getCurrentUser().getUid(); // 채팅 요구 UID
         destinationUid = getIntent().getStringExtra("senderUid"); // 목적지 채팅 UID
         imageButton = findViewById(R.id.messageActivity_button);
         editText = findViewById(R.id.messageActivity_editText);
@@ -68,8 +74,12 @@ public class MessageActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                InputMethodManager mInputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                mInputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+
                 ChatModel chatModel = new ChatModel();
-                chatModel.users.put(uid, true);
+                chatModel.users.put(senderUID, true);
                 chatModel.users.put(destinationUid, true);
                 if(chatRoomUid == null) {
                     imageButton.setEnabled(false);
@@ -81,7 +91,7 @@ public class MessageActivity extends AppCompatActivity {
                     });
                 } else {
                     ChatModel.Comment comment = new ChatModel.Comment();
-                    comment.uid = uid;
+                    comment.uid = senderUID;
                     comment.message = editText.getText().toString();
                     comment.timestamp = ServerValue.TIMESTAMP;
                     FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatRoomUid).child("comments").push().setValue(comment).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -131,7 +141,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     void checkChatRoom() {
-        FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/"+uid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/"+ senderUID).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot item : snapshot.getChildren()) {
@@ -151,6 +161,7 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
     }
+
     class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         List<ChatModel.Comment> comments;
         public RecyclerViewAdapter() {
@@ -198,10 +209,10 @@ public class MessageActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            MessageViewHolder messageViewHolder = ((MessageViewHolder)holder);
+            final MessageViewHolder messageViewHolder = ((MessageViewHolder)holder);
 
             //sender
-            if(comments.get(position).uid.equals(uid)) {
+            if(comments.get(position).uid.equals(senderUID)) {
                 messageViewHolder.textView_message.setText(comments.get(position).message);
                 messageViewHolder.textView_message.setBackgroundResource(R.drawable.rightbubble);
                 messageViewHolder.linearLayout_destination.setVisibility(View.INVISIBLE);
@@ -209,17 +220,73 @@ public class MessageActivity extends AppCompatActivity {
                 //receiver
             } else {
                 //Glide.with(holder.itemView.getContext()).load(destinationUserModel.profileImageUrl).apply(new RequestOptions().circleCrop()).into(messageViewHolder.imageView_profile);
-                messageViewHolder.textView_name.setText(destinationUserModel.userName);
+                FirebaseDatabase.getInstance().getReference().child("users").child(comments.get(position).uid).child("userName").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        messageViewHolder.textView_name.setText(snapshot.getValue(String.class));
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
                 messageViewHolder.textView_message.setBackgroundResource(R.drawable.leftbublle);
                 messageViewHolder.textView_message.setText(comments.get(position).message);
                 messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT);
+
+
             }
             long unixTime = (long) comments.get(position).timestamp;
+
             Date date = new Date(unixTime);
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
             String time = simpleDateFormat.format(date);
             messageViewHolder.textView_timestamp.setText(time);
+
+            final int pos = position;
+            checkProfile(comments.get(pos).uid);
+            messageViewHolder.textView_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ProfileButtonClicked(comments.get(pos).uid);
+                }
+            });
+        }
+
+        private void ProfileButtonClicked(String uid) {
+
+            VoteModel voteModel = new VoteModel();
+            voteModel.redeliveryRate = "0";
+            voteModel.manner = "0";
+            voteModel.uid = uid;
+            checkProfile(uid);
+            if(isAvailable) {
+                FirebaseDatabase.getInstance().getReference().child("profile").child(uid).setValue(voteModel);
+                checkProfile(uid);
+            }
+            checkProfile(uid);
+            Intent intent = new Intent(MessageActivity.this, ProfileActivity.class);
+            intent.putExtra("uid", uid);
+            MessageActivity.this.startActivity(intent);
+        }
+
+        void checkProfile(String uid) {
+            FirebaseDatabase.getInstance().getReference().child("profile").child(uid).orderByChild(uid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        isAvailable = false;
+                    } else {
+                        isAvailable = true;
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
         }
 
         @Override
@@ -243,6 +310,7 @@ public class MessageActivity extends AppCompatActivity {
                 linearLayout_destination = (LinearLayout)view.findViewById(R.id.messageItem_linearLayout_destination);
                 linearLayout_main = view.findViewById(R.id.message_linearLayout_main);
                 textView_timestamp = view.findViewById(R.id.messageItem_textView_timestamp);
+
             }
 
         }

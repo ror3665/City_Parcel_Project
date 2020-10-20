@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent" >
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activity_register_parcel_constraintLayout1"
@@ -24,7 +25,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/back_icon" />
+            app:srcCompat="@drawable/back_icon"
+            android:contentDescription="Back" />
 
         <TextView
             android:id="@+id/textView"
@@ -33,7 +35,7 @@
             android:layout_marginStart="15dp"
             android:text="@string/write_register_parcel"
             android:textColor="@android:color/black"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_registerParcel_done"
@@ -50,7 +52,7 @@
             android:background="@android:color/transparent"
             android:text="@string/done"
             android:textColor="@android:color/black"
-            android:textSize="15dp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView"
@@ -77,11 +79,12 @@
             android:ems="10"
             android:hint="@string/title"
             android:inputType="text"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:autofillHints="@string/title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,24 +94,87 @@
         android:background="@drawable/underline_rectangle_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_register_parcel_constraintLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/activity_register_parcel_constraintLayout4">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_kilgram"
+            android:contentDescription="kilogram" />
+
+        <EditText
+            android:id="@+id/editText_registerParcel_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:background="@android:color/transparent"
+            android:ems="6"
+            android:maxLength="6"
+            android:hint="무게 (kg)"
+            android:inputType="numberDecimal"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <EditText
+            android:id="@+id/editText_registerParcel_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:ems="6"
+            android:layout_marginStart="5dp"
+            android:hint="거리 (km)"
+            android:maxLength="6"
+            android:inputType="numberDecimal"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
         <EditText
             android:id="@+id/editText_registerParcel_price"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginStart="5dp"
             android:background="@android:color/transparent"
             android:ems="10"
-            android:hint="￦ 희망 운송비용"
+            android:hint="희망 운송비용 (￦)"
             android:inputType="number"
-            android:textSize="20dp"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButton_registerParcel_calculator"
+            app:layout_constraintStart_toEndOf="@+id/imageButton_registerParcel_calculator"
+            app:layout_constraintTop_toTopOf="@+id/imageButton_registerParcel_calculator" />
+
+        <ImageButton
+            android:id="@+id/imageButton_registerParcel_calculator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/ic_calculate" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/ic_kilometer" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -118,7 +184,7 @@
         android:background="@drawable/underline_rectangle_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_register_parcel_constraintLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/activity_register_parcel_constraintLayout2">
 
         <TextView
             android:id="@+id/textView_registerParcel_myLocation"
@@ -128,7 +194,7 @@
             android:layout_marginTop="15dp"
             android:text="@string/my_location"
             android:textColor="@android:color/black"
-            android:textSize="15dp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -137,17 +203,14 @@
             android:id="@+id/editText_registerParcel_destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
             android:background="@android:color/transparent"
-            android:ems="15"
+            android:ems="20"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:hint="@string/destination_location"
             android:inputType="text"
-            android:textSize="15dp"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton_registerParcel_findAddress"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_registerParcel_myLocation" />
 
@@ -155,23 +218,22 @@
             android:id="@+id/imageButton_registerParcel_findAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="@+id/editText_registerParcel_destination"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editText_registerParcel_destination"
             app:layout_constraintTop_toTopOf="@+id/editText_registerParcel_destination"
-            app:srcCompat="@drawable/gps_icon" />
+            app:srcCompat="@drawable/ic_monitor_gps" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_register_parcel_constraintLayout5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/line_rectangle_shape"
-        app:layout_constraintTop_toBottomOf="@+id/activity_register_parcel_constraintLayout4">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_register_parcel_constraintLayout3">
 
         <EditText
             android:id="@+id/editText_registerParcel_form"
@@ -180,12 +242,14 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@android:color/transparent"
             android:ems="10"
-            android:inputType="textMultiLine"
+            android:lines="10"
             android:gravity="top"
-            android:scrollbars="vertical"
             android:hint="운송을 맡길 물건에 대한 내용을 작성해주세요.\n고가의 물품 또는 금지품목에 대한 신청은 제한될 수 있습니다."
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -193,3 +257,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -2,8 +2,10 @@ package com.example.cityparcelproject.cityparcel.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,10 +18,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final int RC_SIGN_IN  = 1000;
+    private TextView textViewFindEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +32,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         Button firebaseuiauthbtn = (Button)findViewById(R.id.sign_in_with_google_button);
+        textViewFindEmail = findViewById(R.id.textView_linkify);
         firebaseuiauthbtn.setOnClickListener(this);
+
+        Linkify.TransformFilter transformFilter = new Linkify.TransformFilter() {
+            @Override
+            public String transformUrl(Matcher match, String url) {
+                return "";
+            }
+        };
+
+        Pattern pattern1 = Pattern.compile("이메일");
+        Linkify.addLinks(textViewFindEmail, pattern1, "https://accounts.google.com/signin/v2/recoveryidentifier?hl=ko&flowName=GlifWebSignIn&flowEntry=ServiceLogin");
     }
 
     @Override
