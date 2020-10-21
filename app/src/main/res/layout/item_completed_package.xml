@@ -10,19 +10,18 @@
         android:id="@+id/constraintLayout12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/line_rectangle_shape"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/underline_rectangle_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/textView_itemCP_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
-            android:paddingStart="15dp"
-            android:paddingTop="10dp"
+
             android:text="@string/title"
             android:textColor="@android:color/black"
             android:textSize="25dp"
@@ -33,10 +32,10 @@
             android:id="@+id/textView_itemCP_destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="15dp"
-            android:paddingTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
             android:text="@string/destination_location"
-            app:layout_constraintStart_toStartOf="@+id/textView_itemCP_title"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_itemCP_title" />
 
 
@@ -44,13 +43,13 @@
             android:id="@+id/textView_itemCP_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="15dp"
-            android:paddingTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
             android:paddingBottom="15dp"
             android:text="@string/service_price"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textView_itemCP_destination"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_itemCP_destination" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -66,10 +65,13 @@
 
         <Button
             android:id="@+id/button_itemCP_delete"
-            android:layout_width="match_parent"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="제거하기"
+            android:drawableStart="@drawable/ic_trash_can"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text=""
             android:textColor="@android:color/holo_blue_dark"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

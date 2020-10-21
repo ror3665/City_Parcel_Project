@@ -74,6 +74,10 @@ public class ParcelManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         listData.add(data);
     }
 
+    public ArrayList<ParcelNode> getList() {
+        return listData;
+    }
+
     private ParcelManagementAdapter.OnItemClickListener mListener = null;
 
     public void setOnItemClickListener(ParcelManagementAdapter.OnItemClickListener listener) {

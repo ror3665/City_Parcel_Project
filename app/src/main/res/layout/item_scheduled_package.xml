@@ -11,21 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/line_rectangle_shape"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/textView_itemSP_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:paddingStart="15dp"
-            android:paddingTop="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
             android:text="@string/title"
             android:textColor="@android:color/black"
-            android:textSize="25dp"
+            android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,10 +32,10 @@
             android:id="@+id/textView_itemSP_destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="15dp"
-            android:paddingTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
             android:text="@string/destination_location"
-            app:layout_constraintStart_toStartOf="@+id/textView_itemSP_title"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_itemSP_title" />
 
 
@@ -44,13 +43,14 @@
             android:id="@+id/textView_itemSP_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="15dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="15dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/service_price"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textView_itemSP_destination"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_itemSP_destination" />
 
 
@@ -69,24 +69,26 @@
             android:id="@+id/button_itemSP_toSend"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="운송 중으로 변경"
+            android:drawableStart="@drawable/ic_check"
+            android:text="운송인 입력하기"
             android:textColor="@android:color/holo_blue_dark"
             android:background="@android:color/transparent"
             android:textStyle="bold"
             app:layout_constrainedWidth="true"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_itemSP_toEnd"
+            app:layout_constraintEnd_toStartOf="@+id/button_itemSP_toDelete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button_itemSP_toEnd"
+            android:id="@+id/button_itemSP_toDelete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="운송 종료로 변경"
-            android:textColor="@android:color/holo_blue_dark"
+            android:drawableStart="@drawable/ic_remove"
+            android:text="삭제하기"
+            android:textColor="@android:color/holo_red_dark"
             android:background="@android:color/transparent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"

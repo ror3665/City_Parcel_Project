@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class ShippingPackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<ScheduledPackageNode> listData = new ArrayList<>();
+    private ArrayList<ShippingPackageNode> listData = new ArrayList<>();
 
     public interface OnItemClickListener {
         void onItemClick(View v, int position);
@@ -46,7 +46,7 @@ public class ShippingPackageAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         return listData.size();
     }
 
-    void addItem(ScheduledPackageNode data) {
+    void addItem(ShippingPackageNode data) {
         listData.add(data);
     }
 
@@ -61,11 +61,14 @@ public class ShippingPackageAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         private TextView textViewTitle;
         private TextView textViewDestination;
         private TextView textViewPrice;
+        private TextView textViewDeliveryman;
         ViewHolderShippingPackage(View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.textView_itemShipping_title);
             textViewDestination = itemView.findViewById(R.id.textView_itemShipping_destination);
             textViewPrice = itemView.findViewById(R.id.textView_itemShipping_price);
+            textViewDeliveryman = itemView.findViewById(R.id.textView_itemShipping_deliveryman);
+
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -81,13 +84,13 @@ public class ShippingPackageAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         }
 
-        public void onBind(ScheduledPackageNode data) {
+        public void onBind(ShippingPackageNode data) {
             String price = NumberFormat.getCurrencyInstance(Locale.KOREA).format(Integer.parseInt(data.getPrice())); //원화 표시
             final String index = Integer.toString(data.getIndex());
             textViewTitle.setText(data.getTitle());
             textViewDestination.setText("목적지: " + data.getDestination());
             textViewPrice.setText("운송비용: " + price);
-
+            textViewDeliveryman.setText("운송인: " + data.getDeliveryman());
         }
     }
 }

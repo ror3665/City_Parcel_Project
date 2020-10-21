@@ -3,6 +3,7 @@ package com.example.cityparcelproject.cityparcel.track;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cityparcelproject.R;
+import com.example.cityparcelproject.cityparcel.menu.FindParcelInfoActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,9 +30,9 @@ import java.util.Map;
 public class ScheduledPackageActivity extends AppCompatActivity {
 
     private static String URL = "http://thecityparcel.com/ScheduledPackageList.php";
-    private ScheduledPackageAdapter scheuledPackageAdapter;
+    private ScheduledPackageAdapter scheduledPackageAdapter;
     private RecyclerView recyclerView;
-    private String memEmail, getTitle, getDestination, getPrice;
+    private String memEmail, getTitle, getDestination, getPrice, name;
     private int getIndex;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +40,25 @@ public class ScheduledPackageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scheduled_package);
         Intent intent = getIntent();
         memEmail = intent.getStringExtra("memEmail");
+        name = intent.getStringExtra("name");
         init();
+
+        scheduledPackageAdapter.setOnItemClickListener(new ScheduledPackageAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Intent intent = new Intent(ScheduledPackageActivity.this, FindParcelInfoActivity.class);
+                intent.putExtra("parcelIdx", scheduledPackageAdapter.getList().get(position).getIndex());
+                intent.putExtra("name", name);
+                ScheduledPackageActivity.this.startActivity(intent);
+            }
+        });
     }
 
     private void init() {
         recyclerView = findViewById(R.id.scheduled_package_recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        scheuledPackageAdapter = new ScheduledPackageAdapter(ScheduledPackageActivity.this);
+        scheduledPackageAdapter = new ScheduledPackageAdapter(ScheduledPackageActivity.this);
         scheduledPackageListPHP();
     }
 
@@ -62,9 +75,9 @@ public class ScheduledPackageActivity extends AppCompatActivity {
                         getDestination = jData.getString("parcel_destination");
                         getPrice = jData.getString("parcel_price");
                         getIndex = jData.getInt("parcel_idx");
-                        scheuledPackageAdapter.addItem(new ScheduledPackageNode(getTitle, getDestination, getPrice, getIndex));
+                        scheduledPackageAdapter.addItem(new ScheduledPackageNode(getTitle, getDestination, getPrice, getIndex));
                     }
-                    recyclerView.setAdapter(scheuledPackageAdapter); //show
+                    recyclerView.setAdapter(scheduledPackageAdapter); //show
                 } catch (JSONException e) {
                     Log.e("JSON Parser", "Error parsing data [" + e.getMessage()+"]");
                 }

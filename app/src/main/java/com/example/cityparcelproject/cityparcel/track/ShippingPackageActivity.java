@@ -30,7 +30,7 @@ public class ShippingPackageActivity extends AppCompatActivity {
     private static String URL = "http://thecityparcel.com/ShippingPackageList.php";
     private ShippingPackageAdapter shippingPackageAdapter;
     private RecyclerView recyclerView;
-    private String memEmail, getTitle, getDestination, getPrice;
+    private String memEmail, getTitle, getDestination, getPrice, getDeliveryman;
     private int getIndex;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,8 @@ public class ShippingPackageActivity extends AppCompatActivity {
                         getDestination = jData.getString("parcel_destination");
                         getPrice = jData.getString("parcel_price");
                         getIndex = jData.getInt("parcel_idx");
-                        shippingPackageAdapter.addItem(new ScheduledPackageNode(getTitle, getDestination, getPrice, getIndex));
+                        getDeliveryman = jData.getString("parcel_deliveryman");
+                        shippingPackageAdapter.addItem(new ShippingPackageNode(getTitle, getDestination, getPrice, getIndex, getDeliveryman));
                     }
                     recyclerView.setAdapter(shippingPackageAdapter); //show
                 } catch (JSONException e) {

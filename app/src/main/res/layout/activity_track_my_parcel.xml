@@ -15,21 +15,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView_trackMyParcel_head"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="@string/track"
-            android:textColor="@android:color/black"
-            android:textSize="30dp"
-            android:textStyle="bold"
+            android:layout_height="200dp"
+            android:background="@drawable/city_map_river"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"></androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/imageButton_track_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Back"
+                android:onClick="trackBtnBackIconClicked"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/back_icon" />
+
+            <TextView
+                android:id="@+id/textView_trackMyParcel_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingStart="5dp"
+                android:text="나의 패키지 상태"
+                android:textColor="@android:color/black"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButton_track_back"
+                app:layout_constraintStart_toEndOf="@+id/imageButton_track_back"
+                app:layout_constraintTop_toTopOf="@+id/imageButton_track_back" />
+        </androidx.constraintlayout.widget.ConstraintLayout><![CDATA[
+
+
+
+        />
+
+
+    ]]>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,26 +84,31 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
 
         <Button
+
             android:id="@+id/button_trackMyParcel_scheduled"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/ic_parcel_wait"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="5dp"
-            android:layout_marginTop="3dp"
-            android:text="예정된 운송"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/black"
+            android:layout_marginTop="6dp"
             android:background="@drawable/underline_rectangle_shape"
+            android:gravity="center_vertical"
+            android:paddingStart="5dp"
+            android:text="대기중인 나의 패키지"
+            android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/button_trackMyParcel_shipping"
+            android:drawableStart="@drawable/ic_track_boxes"
+            android:drawablePadding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="운송중인 패키지"
+            android:text="운송중인 나의 패키지"
             android:paddingStart="5dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="6dp"
             android:gravity="center_vertical"
             android:textColor="@android:color/black"
             android:background="@drawable/underline_rectangle_shape"
@@ -71,11 +118,13 @@
 
         <Button
             android:id="@+id/button_trackMyParcel_completed"
+            android:drawableStart="@drawable/ic_track_done_package"
+            android:drawablePadding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="운송완료된 패키지"
+            android:text="완료된 나의 패키지"
             android:paddingStart="5dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="6dp"
             android:gravity="center_vertical"
             android:textColor="@android:color/black"
             android:background="@drawable/underline_rectangle_shape"

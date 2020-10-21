@@ -236,11 +236,13 @@ public class MainMenuActivity extends AppCompatActivity  implements View.OnClick
     private void trackMyParcel() {
         Intent intent = new Intent(MainMenuActivity.this, TrackMyParcelActivity.class);
         intent.putExtra("memEmail", memEmail);
+        intent.putExtra("name", name);
         MainMenuActivity.this.startActivity(intent);
     }
     private void deliveryman() {
         Intent intent = new Intent(MainMenuActivity.this, DeliveryManActivity.class);
         intent.putExtra("memEmail", memEmail);
+        intent.putExtra("name", name);
         MainMenuActivity.this.startActivity(intent);
     }
 

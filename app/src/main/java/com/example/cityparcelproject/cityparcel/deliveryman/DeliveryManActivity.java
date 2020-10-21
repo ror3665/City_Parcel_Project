@@ -3,6 +3,7 @@ package com.example.cityparcelproject.cityparcel.deliveryman;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cityparcelproject.R;
+import com.example.cityparcelproject.cityparcel.menu.FindParcelInfoActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +32,7 @@ public class DeliveryManActivity extends AppCompatActivity {
     private static String URL = "http://thecityparcel.com/CourierPackageList.php";
     private ParcelManagementAdapter parcelManagementAdapter;
     private RecyclerView recyclerView;
-    private String memEmail, getTitle, getDestination, getPrice;
+    private String memEmail, getTitle, getDestination, getPrice, name;
     private int getIndex;
 
     @Override
@@ -40,7 +42,18 @@ public class DeliveryManActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         memEmail = intent.getStringExtra("memEmail");
+        name = intent.getStringExtra("name");
         init();
+
+        parcelManagementAdapter.setOnItemClickListener(new ParcelManagementAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Intent intent = new Intent(DeliveryManActivity.this, FindParcelInfoActivity.class);
+                intent.putExtra("parcelIdx", parcelManagementAdapter.getList().get(position).getIndex());
+                intent.putExtra("name", name);
+                DeliveryManActivity.this.startActivity(intent);
+            }
+        });
     }
 
     private void init() {

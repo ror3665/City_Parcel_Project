@@ -12,6 +12,7 @@ import com.example.cityparcelproject.R;
 public class TrackMyParcelActivity extends AppCompatActivity {
 
     Button scheduledBtn, ShippingBtn, completedBtn;
+    String name;
 
     private String memEmail;
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class TrackMyParcelActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         memEmail = intent.getStringExtra("memEmail");
+        name = intent.getStringExtra("name");
 
         scheduledBtn = (Button) findViewById(R.id.button_trackMyParcel_scheduled);
         ShippingBtn = (Button) findViewById(R.id.button_trackMyParcel_shipping);
@@ -30,6 +32,7 @@ public class TrackMyParcelActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(TrackMyParcelActivity.this, ScheduledPackageActivity.class);
                 intent.putExtra("memEmail", memEmail);
+                intent.putExtra("name", name);
                 TrackMyParcelActivity.this.startActivity(intent);
             }
         });
@@ -51,5 +54,10 @@ public class TrackMyParcelActivity extends AppCompatActivity {
                 TrackMyParcelActivity.this.startActivity(intent);
             }
         });
+
+    }
+
+    public void trackBtnBackIconClicked(View view) {
+        onBackPressed();
     }
 }

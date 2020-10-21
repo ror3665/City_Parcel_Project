@@ -1,8 +1,8 @@
 package com.example.cityparcelproject.cityparcel.track;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +34,7 @@ import java.util.Map;
 public class ScheduledPackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static String URL = "http://thecityparcel.com/StateToShipping.php";
+    private static String URL2 = "http://thecityparcel.com/deleteParcel.php";
 
     private ArrayList<ScheduledPackageNode> listData = new ArrayList<>();
 
@@ -65,6 +66,17 @@ public class ScheduledPackageAdapter extends RecyclerView.Adapter<RecyclerView.V
                 setDeliveryman(position);
             }
         });
+
+        ((ViewHolderScheuledPackage) holder).deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteParcel(position);
+            }
+        });
+    }
+
+    public ArrayList<ScheduledPackageNode> getList() {
+        return listData;
     }
 
     @Override
@@ -88,13 +100,14 @@ public class ScheduledPackageAdapter extends RecyclerView.Adapter<RecyclerView.V
         private TextView textViewDestination;
         private TextView textViewPrice;
         private Button toSendBtn;
+        private Button deleteBtn;
         ViewHolderScheuledPackage(View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.textView_itemSP_title);
             textViewDestination = itemView.findViewById(R.id.textView_itemSP_destination);
             textViewPrice = itemView.findViewById(R.id.textView_itemSP_price);
             toSendBtn = itemView.findViewById(R.id.button_itemSP_toSend);
-
+            deleteBtn = itemView.findViewById(R.id.button_itemSP_toDelete);
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -121,7 +134,6 @@ public class ScheduledPackageAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     private void setStateDeliveryPHP(final String index, final String memEmail) {
-        Log.d("heedong", index);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
@@ -166,6 +178,63 @@ public class ScheduledPackageAdapter extends RecyclerView.Adapter<RecyclerView.V
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 setStateDeliveryPHP(Integer.toString(listData.get(position).getIndex()), editText.getText().toString());
+                listData.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, listData.size());
+            }
+        });
+        alertDialog.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = alertDialog.create();
+        dialog.show();
+    }
+
+
+    private void deleteParcelPHP(final String index) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL2,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")) {
+                                //nothing to do
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("index", index);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+    private void deleteParcel(final int position) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setMessage("정말로 삭제하시겠어요?");
+        alertDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteParcelPHP(Integer.toString(listData.get(position).getIndex()));
                 listData.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, listData.size());
